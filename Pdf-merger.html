@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Merge multiple PDF files into one with our free online PDF Merger tool. Combine PDFs easily and quickly.">
+  <meta name="keywords" content="PDF merger, merge PDF, PDF tools, online PDF merger">
+  <meta name="author" content="Your Company Name">
+  <title>PDF Merger - Free Online PDF Merging Tool</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 1.1rem;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Upload Section */
+    #upload-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #pdf-upload {
+      display: none;
+    }
+
+    .upload-label {
+      display: block;
+      text-align: center;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background-color: #45a049;
+    }
+
+    #file-preview {
+      margin-top: 20px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: #f4f4f9;
+    }
+
+    .file-item button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .file-item button:hover {
+      background-color: #e60000;
+    }
+
+    /* Merge Button */
+    #merge-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #merge-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Download Section */
+    #download-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #download-links a {
+      display: block;
+      padding: 10px;
+      background-color: #f4f4f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      color: #4CAF50;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #download-links a:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Advertisement Section */
+    .ad-space {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      #upload-section, #download-section {
+        padding: 15px;
+      }
+
+      #merge-button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PDF Merger</h1>
+    <p>Combine multiple PDF files into one with ease.</p>
+  </header>
+
+  <main>
+    <!-- File Upload Section -->
+    <section id="upload-section">
+      <label for="pdf-upload" class="upload-label">Choose PDF Files</label>
+      <input type="file" id="pdf-upload" accept="application/pdf" multiple>
+      <div id="file-preview"></div>
+    </section>
+
+    <!-- Merge Button -->
+    <button id="merge-button">Merge PDFs</button>
+
+    <!-- Advertisement Section -->
+    <section id="ad-section">
+      <div class="ad-space" id="ad-top">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download-section">
+      <div id="download-links"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 PDF Merger. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script>
+    // JavaScript for PDF Merging
+    const fileInput = document.getElementById('pdf-upload');
+    const filePreview = document.getElementById('file-preview');
+    const mergeButton = document.getElementById('merge-button');
+    const downloadLinks = document.getElementById('download-links');
+
+    let files = [];
+
+    // Handle file upload
+    fileInput.addEventListener('change', function (e) {
+      files = Array.from(e.target.files);
+      filePreview.innerHTML = '';
+
+      files.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+          <span>${file.name}</span>
+          <button onclick="removeFile(${index})">Remove</button>
+        `;
+        filePreview.appendChild(fileItem);
+      });
+    });
+
+    // Remove file from the list
+    window.removeFile = function (index) {
+      files.splice(index, 1);
+      filePreview.innerHTML = '';
+
+      files.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+          <span>${file.name}</span>
+          <button onclick="removeFile(${index})">Remove</button>
+        `;
+        filePreview.appendChild(fileItem);
+      });
+    };
+
+    // Merge PDFs
+    mergeButton.addEventListener('click', async function () {
+      if (files.length === 0) {
+        alert('Please upload at least one PDF file.');
+        return;
+      }
+
+      try {
+        const mergedPdf = await PDFLib.PDFDocument.create();
+
+        for (const file of files) {
+          const reader = new FileReader();
+          const pdfBytes = await new Promise((resolve) => {
+            reader.onload = function (e) {
+              resolve(new Uint8Array(e.target.result));
+            };
+            reader.readAsArrayBuffer(file);
+          });
+
+          const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+          const copiedPages = await mergedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
+          copiedPages.forEach((page) => mergedPdf.addPage(page));
+        }
+
+        const mergedPdfBytes = await mergedPdf.save();
+        const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        // Display download link
+        downloadLinks.innerHTML = `<a href="${url}" download="merged-pdf.pdf">Download Merged PDF</a>`;
+      } catch (error) {
+        console.error('Error merging PDFs:', error);
+        alert('An error occurred while merging the PDFs.');
+      }
+    });
+  </script>
+</body>
+</html>
