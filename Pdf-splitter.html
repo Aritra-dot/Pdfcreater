@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Split PDF files easily with our free online PDF Splitter tool. Extract specific pages from your PDF.">
+  <meta name="keywords" content="PDF splitter, split PDF, PDF tools, online PDF splitter">
+  <meta name="author" content="Your Company Name">
+  <title>PDF Splitter - Free Online PDF Splitting Tool</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 1.1rem;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Upload Section */
+    #upload-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #pdf-upload {
+      display: none;
+    }
+
+    .upload-label {
+      display: block;
+      text-align: center;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background-color: #45a049;
+    }
+
+    #file-preview {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Split Options Section */
+    #split-options {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #split-options label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    #split-options input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    #split-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #split-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Download Section */
+    #download-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #download-links a {
+      display: block;
+      padding: 10px;
+      background-color: #f4f4f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      color: #4CAF50;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #download-links a:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Advertisement Section */
+    .ad-space {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      #upload-section, #split-options, #download-section {
+        padding: 15px;
+      }
+
+      #split-button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PDF Splitter</h1>
+    <p>Extract specific pages from your PDF file.</p>
+  </header>
+
+  <main>
+    <!-- File Upload Section -->
+    <section id="upload-section">
+      <label for="pdf-upload" class="upload-label">Choose PDF File</label>
+      <input type="file" id="pdf-upload" accept="application/pdf">
+      <div id="file-preview"></div>
+    </section>
+
+    <!-- Split Options Section -->
+    <section id="split-options">
+      <label for="start-page">Start Page:</label>
+      <input type="number" id="start-page" min="1" placeholder="Enter start page">
+
+      <label for="end-page">End Page:</label>
+      <input type="number" id="end-page" min="1" placeholder="Enter end page">
+
+      <button id="split-button">Split PDF</button>
+    </section>
+
+    <!-- Advertisement Section -->
+    <section id="ad-section">
+      <div class="ad-space" id="ad-top">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download-section">
+      <div id="download-links"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 PDF Splitter. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script>
+    // JavaScript for PDF Splitting
+    document.getElementById('split-button').addEventListener('click', async function () {
+      const fileInput = document.getElementById('pdf-upload');
+      const startPage = parseInt(document.getElementById('start-page').value);
+      const endPage = parseInt(document.getElementById('end-page').value);
+      const downloadLinks = document.getElementById('download-links');
+
+      if (fileInput.files.length === 0) {
+        alert('Please upload a PDF file.');
+        return;
+      }
+
+      if (!startPage || !endPage || startPage < 1 || endPage < 1 || startPage > endPage) {
+        alert('Please enter valid start and end pages.');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = async function (e) {
+        const pdfData = new Uint8Array(e.target.result);
+
+        try {
+          // Load the PDF
+          const pdfDoc = await PDFLib.PDFDocument.load(pdfData);
+          const totalPages = pdfDoc.getPageCount();
+
+          if (startPage > totalPages || endPage > totalPages) {
+            alert('Invalid page range. The PDF has only ' + totalPages + ' pages.');
+            return;
+          }
+
+          // Create a new PDF with the selected pages
+          const newPdf = await PDFLib.PDFDocument.create();
+          const pagesToCopy = await newPdf.copyPages(pdfDoc, Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage - 1 + i));
+
+          for (const page of pagesToCopy) {
+            newPdf.addPage(page);
+          }
+
+          // Save the new PDF
+          const pdfBytes = await newPdf.save();
+          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+
+          // Display download link
+          downloadLinks.innerHTML = `<a href="${url}" download="split-pdf.pdf">Download Split PDF</a>`;
+        } catch (error) {
+          console.error('Error splitting PDF:', error);
+          alert('An error occurred while splitting the PDF.');
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  </script>
+</body>
+</html>
