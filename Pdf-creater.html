@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert images to PDF easily with our free online tool. Add multiple images, edit colors, and download your PDF instantly.">
+  <meta name="keywords" content="image to pdf, convert image to pdf, pdf converter, online pdf tool">
+  <meta name="author" content="Your Company Name">
+  <title>Image to PDF Converter - Free Online Tool</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 1.1rem;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Upload Section */
+    #upload-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #image-upload {
+      display: none;
+    }
+
+    .upload-label {
+      display: block;
+      text-align: center;
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background-color: #45a049;
+    }
+
+    #image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    #image-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Color Editing Section */
+    #color-editing {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    #color-editing label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    #color-editing input[type="range"] {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    /* PDF Generation Section */
+    #pdf-generation {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #generate-pdf {
+      padding: 15px 30px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #generate-pdf:hover {
+      background-color: #45a049;
+    }
+
+    /* Advertisement Section */
+    #ad-section {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .ad-space {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      #upload-section, #color-editing, .ad-space {
+        padding: 15px;
+      }
+
+      #generate-pdf {
+        width: 100%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Image to PDF Converter</h1>
+    <p>Upload your images, customize colors, and create a PDF in seconds!</p>
+  </header>
+
+  <main>
+    <!-- Image Upload Section -->
+    <section id="upload-section">
+      <label for="image-upload" class="upload-label">Choose Images</label>
+      <input type="file" id="image-upload" accept="image/*" multiple>
+      <div id="image-preview"></div>
+    </section>
+
+    <!-- Color Editing Section -->
+    <section id="color-editing">
+      <label for="brightness">Brightness:</label>
+      <input type="range" id="brightness" min="0" max="200" value="100">
+      <label for="contrast">Contrast:</label>
+      <input type="range" id="contrast" min="0" max="200" value="100">
+    </section>
+
+    <!-- PDF Generation Section -->
+    <section id="pdf-generation">
+      <button id="generate-pdf">Generate PDF</button>
+    </section>
+
+    <!-- Advertisement Section -->
+    <section id="ad-section">
+      <div class="ad-space" id="ad-top">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript for Dynamic Functionality
+    document.getElementById('image-upload').addEventListener('change', function (event) {
+      const files = event.target.files;
+      const imagePreview = document.getElementById('image-preview');
+      imagePreview.innerHTML = ''; // Clear previous images
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          imagePreview.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('brightness').addEventListener('input', function (event) {
+      const value = event.target.value;
+      const images = document.querySelectorAll('#image-preview img');
+      images.forEach(img => {
+        img.style.filter = `brightness(${value}%) contrast(${document.getElementById('contrast').value}%)`;
+      });
+    });
+
+    document.getElementById('contrast').addEventListener('input', function (event) {
+      const value = event.target.value;
+      const images = document.querySelectorAll('#image-preview img');
+      images.forEach(img => {
+        img.style.filter = `brightness(${document.getElementById('brightness').value}%) contrast(${value}%)`;
+      });
+    });
+
+    document.getElementById('generate-pdf').addEventListener('click', function () {
+      const images = document.querySelectorAll('#image-preview img');
+      if (images.length === 0) {
+        alert('Please upload at least one image.');
+        return;
+      }
+
+      const pdf = new jsPDF();
+      images.forEach((img, index) => {
+        if (index !== 0) pdf.addPage();
+        pdf.addImage(img.src, 'JPEG', 10, 10, 180, 160);
+      });
+
+      pdf.save('converted.pdf');
+    });
+  </script>
+
+  <!-- Include jsPDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    window.jsPDF = window.jspdf.jsPDF;
+  </script>
+</body>
+</html>
