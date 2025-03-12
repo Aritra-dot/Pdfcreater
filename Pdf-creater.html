@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert images to PDF easily with our responsive and dynamic tool. Edit colors, adjust page size, and create PDFs seamlessly.">
-    <meta name="keywords" content="image to pdf, pdf converter, image editor, responsive pdf tool">
+    <meta name="description" content="Convert images to PDF easily with our responsive and dynamic tool. Adjust page size and create PDFs seamlessly.">
+    <meta name="keywords" content="image to pdf, pdf converter, responsive pdf tool">
     <meta name="author" content="Your Name">
     <title>Image to PDF Converter</title>
     <style>
@@ -31,7 +31,7 @@
             margin: 0 auto;
         }
 
-        .upload-section, .color-editing, .size-selection, .image-preview {
+        .upload-section, .size-selection, .image-preview {
             background: white;
             padding: 20px;
             border-radius: 8px;
@@ -66,16 +66,6 @@
 
         button:hover {
             background-color: #45a049;
-        }
-
-        .slider-container {
-            margin-bottom: 15px;
-        }
-
-        .slider-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
         }
 
         .size-selection select {
@@ -128,7 +118,7 @@
 <body>
     <header>
         <h1>Image to PDF Converter</h1>
-        <p>Upload images, edit colors, and create PDFs effortlessly.</p>
+        <p>Upload images and create PDFs effortlessly.</p>
     </header>
 
     <main>
@@ -142,19 +132,6 @@
         <section class="image-preview">
             <h2>Selected Images</h2>
             <div id="preview-container"></div>
-        </section>
-
-        <!-- Color Editing Section -->
-        <section class="color-editing">
-            <h2>Color Editing</h2>
-            <div class="slider-container">
-                <label for="brightness">Brightness:</label>
-                <input type="range" id="brightness" min="0" max="200" value="100">
-            </div>
-            <div class="slider-container">
-                <label for="contrast">Contrast:</label>
-                <input type="range" id="contrast" min="0" max="200" value="100">
-            </div>
         </section>
 
         <!-- Size and File Size Selection Section -->
@@ -202,20 +179,43 @@
         // JavaScript for Dynamic Functionality
         const imageUpload = document.getElementById('image-upload');
         const previewContainer = document.getElementById('preview-container');
-        const brightnessSlider = document.getElementById('brightness');
-        const contrastSlider = document.getElementById('contrast');
-
-        let uploadedImages = []; // Store uploaded images for preview
 
         // Display uploaded images in the preview section
         imageUpload.addEventListener('change', function () {
             previewContainer.innerHTML = ''; // Clear previous previews
-            uploadedImages = []; // Reset uploaded images array
             Array.from(this.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Generate PDF
+        document.getElementById('generate-pdf').addEventListener('click', generatePDF);
+
+        function generatePDF() {
+            const images = imageUpload.files;
+            if (images.length === 0) {
+                alert('Please upload at least one image.');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const pageSize = document.getElementById('page-size').value;
+            const maxFileSize = parseInt(document.getElementById('file-size').value) * 1024 * 1024; // Convert MB to bytes
+
+            let pdf;
+
+            Array.from(images).forEach((image, index) => {
                 const reader = new FileReader();
                 reader.onload = function (event) {
                     const img = new Image();
                     img.src = event.target.result;
+
                     img.onload = function () {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
@@ -223,117 +223,63 @@
                         canvas.height = img.height;
                         ctx.drawImage(img, 0, 0);
 
-                        // Store the canvas for later use
-                        uploadedImages.push({ canvas, ctx, file });
+                        const imgData = canvas.toDataURL('image/jpeg', 0.9); // Adjust quality to control file size
 
-                        // Update preview with brightness and contrast
-                        updatePreview();
+                        // Calculate image dimensions in mm (1px ≈ 0.75mm)
+                        const imgWidth = img.width * 0.75;
+                        const imgHeight = img.height * 0.75;
+
+                        // Initialize PDF based on selected page size
+                        if (!pdf) {
+                            switch (pageSize) {
+                                case 'a4':
+                                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                                    break;
+                                case 'letter':
+                                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+                                    break;
+                                case 'legal':
+                                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'legal' });
+                                    break;
+                                default:
+                                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                            }
+                        }
+
+                        // Add image to the PDF
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        const scale = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                        const scaledWidth = imgWidth * scale;
+                        const scaledHeight = imgHeight * scale;
+                        const x = (pageWidth - scaledWidth) / 2;
+                        const y = (pageHeight - scaledHeight) / 2;
+                        pdf.addImage(imgData, 'JPEG', x, y, scaledWidth, scaledHeight);
+
+                        // Add a new page for the next image (if any)
+                        if (index < images.length - 1) {
+                            pdf.addPage();
+                        }
+
+                        // Save the PDF after processing the last image
+                        if (index === images.length - 1) {
+                            const pdfOutput = pdf.output('blob');
+                            if (pdfOutput.size > maxFileSize) {
+                                alert('The generated PDF exceeds the selected file size limit. Please reduce the number of images or adjust the quality.');
+                            } else {
+                                // Extract the original file name (without extension)
+                                const originalName = image.name.replace(/\.[^/.]+$/, "");
+                                // Save the PDF with the original name + "-converted.pdf"
+                                pdf.save(`${originalName}-converted.pdf`);
+                            }
+                        }
                     };
                 };
-                reader.readAsDataURL(file);
-            });
-        });
-
-        // Update preview images with brightness and contrast
-        function updatePreview() {
-            previewContainer.innerHTML = ''; // Clear previous previews
-            const brightness = brightnessSlider.value;
-            const contrast = contrastSlider.value;
-
-            uploadedImages.forEach(({ canvas, ctx, file }) => {
-                const img = new Image();
-                img.src = canvas.toDataURL(); // Use the original canvas data
-
-                // Apply brightness and contrast to the canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
-                ctx.drawImage(img, 0, 0);
-
-                // Create a new image element for preview
-                const previewImg = document.createElement('img');
-                previewImg.src = canvas.toDataURL();
-                previewContainer.appendChild(previewImg);
-            });
-        }
-
-        // Add event listeners for brightness and contrast sliders
-        brightnessSlider.addEventListener('input', updatePreview);
-        contrastSlider.addEventListener('input', updatePreview);
-
-        // Generate PDF
-        document.getElementById('generate-pdf').addEventListener('click', generatePDF);
-
-        function generatePDF() {
-            if (uploadedImages.length === 0) {
-                alert('Please upload at least one image.');
-                return;
-            }
-
-            const { jsPDF } = window.jspdf;
-            const brightness = brightnessSlider.value;
-            const contrast = contrastSlider.value;
-            const pageSize = document.getElementById('page-size').value;
-            const maxFileSize = parseInt(document.getElementById('file-size').value) * 1024 * 1024; // Convert MB to bytes
-
-            let pdf;
-
-            uploadedImages.forEach(({ canvas, ctx, file }, index) => {
-                // Apply brightness and contrast to the canvas
-                ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
-                ctx.drawImage(canvas, 0, 0);
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.9); // Adjust quality to control file size
-
-                // Calculate image dimensions in mm (1px ≈ 0.75mm)
-                const imgWidth = canvas.width * 0.75;
-                const imgHeight = canvas.height * 0.75;
-
-                // Initialize PDF based on selected page size
-                if (!pdf) {
-                    switch (pageSize) {
-                        case 'a4':
-                            pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                            break;
-                        case 'letter':
-                            pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
-                            break;
-                        case 'legal':
-                            pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'legal' });
-                            break;
-                        default:
-                            pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                    }
-                }
-
-                // Add image to the PDF
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const scale = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-                const scaledWidth = imgWidth * scale;
-                const scaledHeight = imgHeight * scale;
-                const x = (pageWidth - scaledWidth) / 2;
-                const y = (pageHeight - scaledHeight) / 2;
-                pdf.addImage(imgData, 'JPEG', x, y, scaledWidth, scaledHeight);
-
-                // Add a new page for the next image (if any)
-                if (index < uploadedImages.length - 1) {
-                    pdf.addPage();
-                }
-
-                // Save the PDF after processing the last image
-                if (index === uploadedImages.length - 1) {
-                    const pdfOutput = pdf.output('blob');
-                    if (pdfOutput.size > maxFileSize) {
-                        alert('The generated PDF exceeds the selected file size limit. Please reduce the number of images or adjust the quality.');
-                    } else {
-                        // Extract the original file name (without extension)
-                        const originalName = file.name.replace(/\.[^/.]+$/, "");
-                        // Save the PDF with the original name + "-converted.pdf"
-                        pdf.save(`${originalName}-converted.pdf`);
-                    }
-                }
+                reader.readAsDataURL(image);
             });
         }
     </script>
 </body>
 </html>
+
+            
