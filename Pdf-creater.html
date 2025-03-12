@@ -1,286 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convert images to PDF easily with our free online tool. Add multiple images, edit colors, and download your PDF instantly.">
-  <meta name="keywords" content="image to pdf, convert image to pdf, pdf converter, online pdf tool">
-  <meta name="author" content="Your Company Name">
-  <title>Image to PDF Converter - Free Online Tool</title>
-  <style>
-    /* Global Styles */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert images to PDF easily with our responsive and dynamic tool. Edit colors, adjust page size, and create PDFs seamlessly.">
+    <meta name="keywords" content="image to pdf, pdf converter, image editor, responsive pdf tool">
+    <meta name="author" content="Your Name">
+    <title>Image to PDF Converter</title>
+    <style>
+        /* CSS for Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
-    header {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #4CAF50;
-      color: white;
-    }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    header p {
-      margin: 10px 0 0;
-      font-size: 1.1rem;
-    }
+        .upload-section, .color-editing, .size-selection {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-    main {
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+        h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
 
-    /* Upload Section */
-    #upload-section {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
+        input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-    #image-upload {
-      display: none;
-    }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
 
-    .upload-label {
-      display: block;
-      text-align: center;
-      padding: 15px;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+        button:hover {
+            background-color: #45a049;
+        }
 
-    .upload-label:hover {
-      background-color: #45a049;
-    }
+        .slider-container {
+            margin-bottom: 15px;
+        }
 
-    #image-preview {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
+        .slider-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-    #image-preview img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        .size-selection select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
 
-    /* Color Editing Section */
-    #color-editing {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
 
-    #color-editing label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 24px;
+            }
 
-    #color-editing input[type="range"] {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    /* PDF Generation Section */
-    #pdf-generation {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    #generate-pdf {
-      padding: 15px 30px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #generate-pdf:hover {
-      background-color: #45a049;
-    }
-
-    /* Advertisement Section */
-    #ad-section {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .ad-space {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #333;
-      color: white;
-      margin-top: 40px;
-    }
-
-    footer p {
-      margin: 0;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
-      header p {
-        font-size: 1rem;
-      }
-
-      main {
-        padding: 10px;
-      }
-
-      #upload-section, #color-editing, .ad-space {
-        padding: 15px;
-      }
-
-      #generate-pdf {
-        width: 100%;
-        padding: 15px;
-      }
-    }
-  </style>
+            input[type="file"] {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- Include jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Image to PDF Converter</h1>
-    <p>Upload your images, customize colors, and create a PDF in seconds!</p>
-  </header>
+    <header>
+        <h1>Image to PDF Converter</h1>
+        <p>Upload images, edit colors, and create PDFs effortlessly.</p>
+    </header>
 
-  <main>
-    <!-- Image Upload Section -->
-    <section id="upload-section">
-      <label for="image-upload" class="upload-label">Choose Images</label>
-      <input type="file" id="image-upload" accept="image/*" multiple>
-      <div id="image-preview"></div>
-    </section>
+    <main>
+        <!-- Image Upload Section -->
+        <section class="upload-section">
+            <h2>Upload Images</h2>
+            <input type="file" id="image-upload" accept="image/*" multiple>
+        </section>
 
-    <!-- Color Editing Section -->
-    <section id="color-editing">
-      <label for="brightness">Brightness:</label>
-      <input type="range" id="brightness" min="0" max="200" value="100">
-      <label for="contrast">Contrast:</label>
-      <input type="range" id="contrast" min="0" max="200" value="100">
-    </section>
+        <!-- Color Editing Section -->
+        <section class="color-editing">
+            <h2>Color Editing</h2>
+            <div class="slider-container">
+                <label for="brightness">Brightness:</label>
+                <input type="range" id="brightness" min="0" max="200" value="100">
+            </div>
+            <div class="slider-container">
+                <label for="contrast">Contrast:</label>
+                <input type="range" id="contrast" min="0" max="200" value="100">
+            </div>
+        </section>
 
-    <!-- PDF Generation Section -->
-    <section id="pdf-generation">
-      <button id="generate-pdf">Generate PDF</button>
-    </section>
+        <!-- Size and File Size Selection Section -->
+        <section class="size-selection">
+            <h2>PDF Settings</h2>
+            <label for="page-size">Page Size:</label>
+            <select id="page-size">
+                <option value="a4">A4 (210mm x 297mm)</option>
+                <option value="letter">Letter (216mm x 279mm)</option>
+                <option value="legal">Legal (216mm x 356mm)</option>
+            </select>
 
-    <!-- Advertisement Section -->
-    <section id="ad-section">
-      <div class="ad-space" id="ad-top">
-        <!-- Google AdSense Code -->
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
-             data-ad-slot="1234567890"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
-    </section>
-  </main>
+            <label for="file-size">Max PDF File Size (MB):</label>
+            <select id="file-size">
+                <option value="1">1 MB</option>
+                <option value="2">2 MB</option>
+                <option value="5">5 MB</option>
+                <option value="10">10 MB</option>
+            </select>
+        </section>
 
-  <footer>
-    <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-  </footer>
+        <!-- Generate PDF Button -->
+        <button id="generate-pdf">Generate PDF</button>
 
-  <script>
-    // JavaScript for Dynamic Functionality
-    document.getElementById('image-upload').addEventListener('change', function (event) {
-      const files = event.target.files;
-      const imagePreview = document.getElementById('image-preview');
-      imagePreview.innerHTML = ''; // Clear previous images
+        <!-- Ad Space for Google AdSense -->
+        <section id="ad-space">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+    </main>
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
+    <footer>
+        <p>&copy; 2023 Image to PDF Converter. All rights reserved.</p>
+    </footer>
 
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          imagePreview.appendChild(img);
-        };
+    <script>
+        // JavaScript for Dynamic Functionality
+        document.getElementById('generate-pdf').addEventListener('click', generatePDF);
 
-        reader.readAsDataURL(file);
-      }
-    });
+        function generatePDF() {
+            const images = document.getElementById('image-upload').files;
+            if (images.length === 0) {
+                alert('Please upload at least one image.');
+                return;
+            }
 
-    document.getElementById('brightness').addEventListener('input', function (event) {
-      const value = event.target.value;
-      const images = document.querySelectorAll('#image-preview img');
-      images.forEach(img => {
-        img.style.filter = `brightness(${value}%) contrast(${document.getElementById('contrast').value}%)`;
-      });
-    });
+            const { jsPDF } = window.jspdf;
+            const brightness = document.getElementById('brightness').value;
+            const contrast = document.getElementById('contrast').value;
+            const pageSize = document.getElementById('page-size').value;
+            const maxFileSize = parseInt(document.getElementById('file-size').value) * 1024 * 1024; // Convert MB to bytes
 
-    document.getElementById('contrast').addEventListener('input', function (event) {
-      const value = event.target.value;
-      const images = document.querySelectorAll('#image-preview img');
-      images.forEach(img => {
-        img.style.filter = `brightness(${document.getElementById('brightness').value}%) contrast(${value}%)`;
-      });
-    });
+            // Initialize PDF with selected page size
+            let pdf;
+            switch (pageSize) {
+                case 'a4':
+                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                    break;
+                case 'letter':
+                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+                    break;
+                case 'legal':
+                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'legal' });
+                    break;
+                default:
+                    pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            }
 
-    document.getElementById('generate-pdf').addEventListener('click', function () {
-      const images = document.querySelectorAll('#image-preview img');
-      if (images.length === 0) {
-        alert('Please upload at least one image.');
-        return;
-      }
+            Array.from(images).forEach((image, index) => {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const img = new Image();
+                    img.src = event.target.result;
 
-      const pdf = new jsPDF();
-      images.forEach((img, index) => {
-        if (index !== 0) pdf.addPage();
-        pdf.addImage(img.src, 'JPEG', 10, 10, 180, 160);
-      });
+                    img.onload = function () {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
 
-      pdf.save('converted.pdf');
-    });
-  </script>
+                        // Apply brightness and contrast
+                        ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+                        ctx.drawImage(img, 0, 0);
 
-  <!-- Include jsPDF Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    window.jsPDF = window.jspdf.jsPDF;
-  </script>
+                        const imgData = canvas.toDataURL('image/jpeg', 0.9); // Adjust quality to control file size
+
+                        // Calculate image dimensions to fit within the page
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+
+                        let imgWidth = img.width * 0.75; // Convert pixels to mm
+                        let imgHeight = img.height * 0.75;
+
+                        // Scale image to fit within the page while maintaining aspect ratio
+                        const scale = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                        imgWidth *= scale;
+                        imgHeight *= scale;
+
+                        // Add image to the PDF (no margin)
+                        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+
+                        // Add a new page for the next image (if any)
+                        if (index < images.length - 1) {
+                            pdf.addPage();
+                        }
+
+                        // Save the PDF after processing the last image
+                        if (index === images.length - 1) {
+                            const pdfOutput = pdf.output('blob');
+                            if (pdfOutput.size > maxFileSize) {
+                                alert('The generated PDF exceeds the selected file size limit. Please reduce the number of images or adjust the quality.');
+                            } else {
+                                // Extract the original file name (without extension)
+                                const originalName = image.name.replace(/\.[^/.]+$/, "");
+                                // Save the PDF with the original name + "-converted.pdf"
+                                pdf.save(`${originalName}-converted.pdf`);
+                            }
+                        }
+                    };
+                };
+                reader.readAsDataURL(image);
+            });
+        }
+    </script>
 </body>
 </html>
